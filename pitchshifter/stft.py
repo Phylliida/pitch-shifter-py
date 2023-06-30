@@ -2,7 +2,7 @@
 
 import numpy as np
 from scipy.fft import fft, ifft
-from scipy.signal import hanning
+from scipy.signal.windows import hann
 from scipy import array, zeros, real
 
 def stft(x, chunk_size, hop, w=None):
@@ -22,7 +22,7 @@ def stft(x, chunk_size, hop, w=None):
       ValueError if window w is not of size chunk_size
     """
     if not w:
-        w = hanning(chunk_size)
+        w = hann(chunk_size)
     else:
         if len(w) != chunk_size:
             raise ValueError("window w is not of the correct length {0}.".format(chunk_size))
@@ -49,7 +49,7 @@ def istft(X, chunk_size, hop, w=None):
     """
 
     if not w:
-        w = hanning(chunk_size)
+        w = hann(chunk_size)
     else:
         if len(w) != chunk_size:
             raise ValueError("window w is not of the correct length {0}.".format(chunk_size))
